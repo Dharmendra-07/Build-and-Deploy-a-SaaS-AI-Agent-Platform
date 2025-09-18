@@ -11,6 +11,8 @@
     "db:studio": "kill -9 $(lsof -t -i:5005) 2>/dev/null || true && drizzle-kit studio --port=5005"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.4",
+    "@dicebear/core": "^9.2.4",
     "@hookform/resolvers": "^5.2.1",
     "@neondatabase/serverless": "^1.0.1",
     "@radix-ui/react-accordion": "^1.2.12",
