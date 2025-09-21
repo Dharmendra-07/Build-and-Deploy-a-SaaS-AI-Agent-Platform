@@ -26,8 +26,6 @@ const Page = async () => {
 export default Page;
 
 
-
-
 // import AgentsListHeader from "@/modules/agents/ui/components/agents-list-header";
 // import AgentsView, {
 //   AgentsViewError,
