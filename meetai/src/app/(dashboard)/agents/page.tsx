@@ -1,29 +1,29 @@
+
 import { Suspense } from "react";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { getQueryClient } from "@/trpc/server";
+import { getQueryClient, trpc } from "@/trpc/server"; // ✅ added trpc
 import { ErrorBoundary } from "react-error-boundary";
 import { AgentsListHeader } from "@/modules/agents/ui/components/agents-list-header";
 import { 
   AgentsView,
   AgentsViewError, 
-  AgentsViewLoading } from '@/modules/agents/ui/views/agents-view'
+  AgentsViewLoading 
+} from '@/modules/agents/ui/views/agents-view';
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-
-// import { trpc } from '@/trpc/client'
 
 const Page = async () => {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
 
-  if(!session) {
-    redirect('/sign-in')
+  if (!session) {
+    redirect("/sign-in");
   }
 
   const queryClient = getQueryClient();
-  void queryClient.prefetchQuery(trpc.agents.getMany.queryOptions())
+  await queryClient.prefetchQuery(trpc.agents.getMany.queryOptions()); // ✅ fixed
 
   return (
     <>
@@ -36,7 +36,7 @@ const Page = async () => {
         </Suspense>
       </HydrationBoundary>
     </>
-  )
+  );
 };
-export default Page;
 
+export default Page;
